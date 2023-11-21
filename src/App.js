@@ -1,5 +1,4 @@
-import Nome from "./components/Nome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function App() {
   //useState pega a informação e relaciona com a variavel de modo mudança ser no cliente
@@ -8,6 +7,19 @@ export default function App() {
     'pagar a conta de luz',
     'estudar next.js'
   ]);
+  
+  useEffect(()=>{
+    const tarefasStorage = localStorage.getItem('@tarefa');
+
+    if(tarefasStorage){
+      setTarefas(JSON.parse(tarefasStorage))
+    }
+ 
+  },[]);
+
+  useEffect(()=>{
+    localStorage.setItem('@tarefa',  JSON.stringify(tarefas))
+  },[tarefas]);
 
   function handleRegister(e){
     //Evita que a página seja atualizada
